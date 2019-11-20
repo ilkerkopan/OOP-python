@@ -2,30 +2,16 @@ import turtle
 from random import randint
 
 class RaceTrack:
-    starting_point = -100
-    finish_point = 100
+    def __init__(self, start, end):
+        self.starting_point = start
+        self.finish_point = end
+    
     def draw_track(self):
         drawer = turtle.Turtle()
         drawer.penup()
         drawer.right(90)
-        start_x = RaceTrack.starting_point
-        for i in range(0,250,50):
-            drawer.goto(start_x+i,100)
-            drawer.pendown()
-            drawer.forward(200)
-            drawer.penup()
-            drawer.forward(10)
-            drawer.write(i)
-
-class RaceTrackLonger:
-    starting_point = -200
-    finish_point = 300
-    def draw_track(self):
-        drawer = turtle.Turtle()
-        drawer.penup()
-        drawer.right(90)
-        start_x = RaceTrackLonger.starting_point
-        track_length = - RaceTrackLonger.starting_point + RaceTrackLonger.finish_point
+        start_x = self.starting_point
+        track_length = -self.starting_point + self.finish_point
         for i in range(0,track_length+1,50):
             drawer.goto(start_x+i,100)
             drawer.pendown()
@@ -33,7 +19,15 @@ class RaceTrackLonger:
             drawer.penup()
             drawer.forward(10)
             drawer.write(i)
-            
+
+class LongRaceTrack(RaceTrack):
+    def __init__(self):
+        super().__init__(-200,300)
+
+class ShortRaceTrack(RaceTrack):
+    def __init__(self):
+        super().__init__(-100,100)
+        
 class RaceTurtle:
     def __init__(self, color, order, start_line):
         self.race_turtle = turtle.Turtle()
@@ -73,8 +67,8 @@ class Race:
                 self.not_finished = False
                 print("Blue turtle wins")
 
-long_race_track = RaceTrackLonger()
-race_track = RaceTrack()
-race = Race(long_race_track)
+long_race_track = LongRaceTrack()
+short_race_track = ShortRaceTrack()
+race = Race(short_race_track)
 race.start_race()
             
